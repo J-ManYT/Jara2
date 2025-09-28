@@ -243,7 +243,7 @@ class ImprovedMDiningScraper:
         
         print(f"Found {len(menu_items)} items from {hall_name}")
         return menu_items
-    
+
     def scrape_multiple_halls(self) -> Dict[str, List[MenuItem]]:
         """Scrape multiple dining halls"""
         halls = {
@@ -252,21 +252,23 @@ class ImprovedMDiningScraper:
             'East Quad': 'https://dining.umich.edu/menus-locations/dining-halls/east-quad/',
             'North Quad': 'https://dining.umich.edu/menus-locations/dining-halls/north-quad/',
             'Mosher-Jordan': 'https://dining.umich.edu/menus-locations/dining-halls/mosher-jordan/',
+            'Markley': 'https://dining.umich.edu/menus-locations/dining-halls/markley/',
+            'Twigs at Oxford': 'https://dining.umich.edu/menus-locations/dining-halls/twigs-at-oxford/',
         }
-        
+
         all_menus = {}
         for hall_name, hall_url in halls.items():
             try:
                 menu_items = self.scrape_dining_hall_comprehensive(hall_url, hall_name)
                 all_menus[hall_name] = menu_items
-                
+
                 # Small delay between requests
                 time.sleep(1)
-                
+
             except Exception as e:
                 print(f"Failed to scrape {hall_name}: {e}")
                 all_menus[hall_name] = []
-        
+
         return all_menus
     
     def save_for_mobile_app(self, menus: Dict[str, List[MenuItem]], filename: str = 'menu_data.json'):
